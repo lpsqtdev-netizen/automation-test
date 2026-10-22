@@ -49,7 +49,7 @@ node --check inventory-utils.js
 node --check dashboard.js
 node --test tests/*.test.js
 ```
-GitHub Actions exécute les tests et construit les paquets distincts Chrome et Firefox à chaque push sur `main) ou la branche de développement, ainsi qu'à chaque pull request vers `main`.
+GitHub Actions exécute les tests et construit les paquets distincts Chrome et Firefox à chaque push sur `main` ou une branche de développement, ainsi qu'à chaque pull request vers `main`.
 
 ## Limites
 - La détection dépend du HTML servi par Vinted et doit être vérifiée sur de vraies pages.
