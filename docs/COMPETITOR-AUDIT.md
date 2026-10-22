@@ -28,15 +28,15 @@ Sources comparatives complémentaires :
 
 ## Écart fonctionnel et stratégie
 
-| Domaine | État initial | V1.2.0 dans cette branche | Étape suivante |
+| Domaine | État initial | V1.2.0 avant la dernière évolution | Étape suivante |
 |---|---|---|---|
 | Analyse des annonces visibles | Basique, manuelle | Conservée | Robustesse DOM, qualité de parsing, tests de fixtures |
 | Historique et alertes | Historique local lors d'une analyse | Conservé | Seuils d'alerte configurables, toujours sur observations explicites |
 | Stock et références | Absent | Inventaire local avec SKU, état, taille et statut | Filtres avancés, édition groupée, catégories et photos optionnelles |
-| Coûts et rentabilité | Calculateur isolé | Coût d'achat, frais, prix cible, bénéfice estimé par article et total stock | Coûts réels par vente, frais variables et rapports par période |
+| Coûts et rentabilité | Calculateur isolé | Coût d'achat, frais, prix cible, dates d'achat/vente, prix/frais réels saisis, bénéfice réalisé distinct du potentiel | Rapports mensuels, coûts variables et export comptable |
 | Préparation d'annonce | Absent | Brouillon de titre/description à partir des données saisies | Modèles personnalisables et contrôle qualité du texte |
 | Sauvegarde | CSV pour annonces/suivi | Import/export JSON explicite pour l'inventaire | Migration de schéma et déduplication plus poussée |
-| Comptabilité | Absent | Pas encore de ventes/factures fiscales | Journal des ventes, exports comptables, validation des exigences françaises |
+| Comptabilité | Absent | Journal de ventes manuel et bénéfice réalisé; pas de factures fiscales | Rapports mensuels, exports comptables, validation des exigences françaises |
 | Actions Vinted | Manuelles | Aucune publication/message automatique | Garder une confirmation explicite avant toute action |
 | Distribution | Chrome/Firefox, paquet CI | Les fichiers dashboard sont intégrés au paquet CI | Tests manuels sur Chrome et Firefox, puis signature AMO |
 

@@ -1,6 +1,6 @@
 # Vinted Companion — Chrome et Firefox
 
-Version 1.2.0 · Manifest V3 · Interface française · traitement local.
+Version 1.3.0 · Manifest V3 · Interface française · traitement local.
 
 ## Fonctionnalités
 - Analyse manuelle des annonces visibles : nombre, prix moyen et minimum.
@@ -11,6 +11,8 @@ Version 1.2.0 · Manifest V3 · Interface française · traitement local.
 - Tableau de bord complet : inventaire local, statuts (à préparer/en ligne/vendu), prix d’achat, frais, prix cible, bénéfice estimé et recherche.
 - Préparation manuelle de brouillons de titre/description, avec validation avant publication.
 - Sauvegarde JSON de l’inventaire et import explicite avec confirmation.
+- Dates d’achat/vente, prix et frais réels saisis manuellement, bénéfice réalisé séparé du bénéfice potentiel.
+- Les articles historiques restent compatibles : les ventes sans prix/frais réels utilisent le prix cible et les frais estimés.
 - Domaines Vinted FR, BE, DE, ES, IT, NL, PL et PT, avec ou sans `www`.
 - API de navigateur compatible avec `browser` (Firefox) et `chrome` (Chrome/Chromium).
 - Pas d'achat ou de message automatique, pas de serveur, pas de collecte périodique en arrière-plan.
@@ -43,9 +45,11 @@ Nécessite Node.js 20+ :
 node --check parser.js
 node --check content.js
 node --check popup.js
-node --test tests/parser.test.js
+node --check inventory-utils.js
+node --check dashboard.js
+node --test tests/*.test.js
 ```
-GitHub Actions exécute les tests et construit les paquets distincts Chrome et Firefox à chaque push sur `main) ou la branche de développement, ainsi qu'à chaque pull request vers `main`.
+GitHub Actions exécute les tests et construit les paquets distincts Chrome et Firefox à chaque push sur `main` ou une branche de développement, ainsi qu'à chaque pull request vers `main`.
 
 ## Limites
 - La détection dépend du HTML servi par Vinted et doit être vérifiée sur de vraies pages.
