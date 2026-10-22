@@ -1,4 +1,5 @@
 (() => {
+  const SUPPORTED_HOST = /(^|\.)vinted\.(fr|be|de|es|it|nl|pl|pt)$/i;
   const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
 
   function parsePrice(value) {
@@ -27,6 +28,17 @@
     return Number.isFinite(parsed) && parsed >= 0 ? parsed : null;
   }
 
+  function isSupportedListingUrl(value, base = 'https://www.vinted.fr') {
+    try {
+      const parsed = new URL(value, base);
+      return parsed.protocol === 'https:' &&
+        SUPPORTED_HOST.test(parsed.hostname) &&
+        /^\/items\/\d+(?:[-/]|$)/.test(parsed.pathname);
+    } catch {
+      return false;
+    }
+  }
+
   function itemId(url) {
     try {
       const parsed = new URL(url, 'https://www.vinted.fr');
@@ -38,6 +50,7 @@
   }
 
   function collectFromDocument(doc, now = Date.now()) {
+    const baseUrl = doc.location?.href || 'https://www.vinted.fr';
     const selectors = [
       '[data-testid="item-box"]',
       '[data-testid^="product-item-id-"]',
@@ -50,7 +63,6 @@
       doc.querySelectorAll(selector).forEach(node => candidates.add(node));
     }
 
-    // Fallback for Vinted markup changes: identify compact ancestors of item links.
     if (!candidates.size) {
       doc.querySelectorAll('a[href*="/items/"]').forEach(link => {
         let node = link;
@@ -69,9 +81,11 @@
     for (const node of candidates) {
       const link = node.querySelector('a[href*="/items/"]');
       if (!link) continue;
-      const url = link.href || link.getAttribute('href');
-      const id = itemId(url);
-      if (!url || seen.has(id)) continue;
+      const rawUrl = link.href || link.getAttribute('href');
+      if (!rawUrl || !isSupportedListingUrl(rawUrl, baseUrl)) continue;
+      const parsedUrl = new URL(rawUrl, baseUrl);
+      const id = itemId(parsedUrl.href);
+      if (seen.has(id)) continue;
       const rawText = node.innerText || node.textContent || '';
       const price = parsePrice(rawText);
       if (price === null) continue;
@@ -82,7 +96,7 @@
         ? alt
         : (lines.find(line => !/^\d[\d\s.,]*\s*€$/.test(line) && !/^(favori|sponsorisé|promoted)$/i.test(line)) || 'Annonce Vinted');
       results.push({
-        id, title: title.slice(0, 240), price, url: new URL(url, doc.location?.href || 'https://www.vinted.fr').href,
+        id, title: title.slice(0, 240), price, url: parsedUrl.href,
         image: img?.currentSrc || img?.src || '', currency: 'EUR', seenAt: now
       });
       seen.add(id);
@@ -91,7 +105,7 @@
     return results;
   }
 
-  const api = { clean, parsePrice, itemId, collectFromDocument };
+  const api = { clean, parsePrice, itemId, isSupportedListingUrl, collectFromDocument };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   if (typeof globalThis !== 'undefined') globalThis.VintedCompanionParser = api;
 })();
