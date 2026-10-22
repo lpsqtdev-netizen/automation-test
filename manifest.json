@@ -1,20 +1,28 @@
 {
   "manifest_version": 3,
   "name": "Vinted Companion — Outils & Analyse",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Analyse locale, filtres, historique de prix observés, suivi et calcul de marge pour Vinted.",
   "permissions": [
     "storage",
     "activeTab"
   ],
   "host_permissions": [
+    "https://vinted.fr/*",
     "https://www.vinted.fr/*",
+    "https://vinted.be/*",
     "https://www.vinted.be/*",
+    "https://vinted.de/*",
     "https://www.vinted.de/*",
+    "https://vinted.es/*",
     "https://www.vinted.es/*",
+    "https://vinted.it/*",
     "https://www.vinted.it/*",
+    "https://vinted.nl/*",
     "https://www.vinted.nl/*",
+    "https://vinted.pl/*",
     "https://www.vinted.pl/*",
+    "https://vinted.pt/*",
     "https://www.vinted.pt/*"
   ],
   "action": {
@@ -24,20 +32,28 @@
   "content_scripts": [
     {
       "matches": [
+        "https://vinted.fr/*",
         "https://www.vinted.fr/*",
+        "https://vinted.be/*",
         "https://www.vinted.be/*",
+        "https://vinted.de/*",
         "https://www.vinted.de/*",
+        "https://vinted.es/*",
         "https://www.vinted.es/*",
+        "https://vinted.it/*",
         "https://www.vinted.it/*",
+        "https://vinted.nl/*",
         "https://www.vinted.nl/*",
+        "https://vinted.pl/*",
         "https://www.vinted.pl/*",
+        "https://vinted.pt/*",
         "https://www.vinted.pt/*"
       ],
       "js": [
+        "parser.js",
         "content.js"
       ],
       "run_at": "document_idle"
     }
-  ],
-  "icons": {}
+  ]
 }

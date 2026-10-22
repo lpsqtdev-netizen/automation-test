@@ -1,0 +1,35 @@
+name: Validate extension
+on:
+  push:
+    branches: [main, feat/vinted-companion-extension]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate manifest JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('manifest.json', 'utf8'))"
+      - name: Check JavaScript syntax
+        run: |
+          node --check parser.js
+          node --check content.js
+          node --check popup.js
+      - name: Run parser tests
+        run: node --test tests/parser.test.js
+      - name: Package extension
+        run: |
+          mkdir -p dist
+          zip -r dist/vinted-companion-chrome.zip manifest.json parser.js content.js popup.html popup.css popup.js README.md PRIVACY.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vinted-companion-chrome
+          path: dist/vinted-companion-chrome.zip
+          if-no-files-found: error

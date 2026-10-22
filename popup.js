@@ -1,4 +1,5 @@
 const $ = id => document.getElementById(id);
+const SUPPORTED_VINTED_HOST = /(^|\.)vinted\.(fr|be|de|es|it|nl|pl|pt)$/i;
 let currentItems = [];
 const money = n => new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(n || 0);
 const safe = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -9,7 +10,9 @@ async function collectVisible(){
   $('status').textContent='Lecture des annonces visibles…';
   try{
     const tab=await getActiveTab();
-    if(!tab?.id||!/^https:\/\/(www\.)?vinted\./.test(tab.url||''))throw Error('not-vinted');
+    if(!tab?.id) throw Error('no-active-tab');
+    const activeUrl = new URL(tab.url || '');
+    if(activeUrl.protocol !== 'https:' || !SUPPORTED_VINTED_HOST.test(activeUrl.hostname)) throw Error('not-vinted');
     const response=await chrome.tabs.sendMessage(tab.id,{type:'VINTED_COMPANION_COLLECT'});
     currentItems=response?.items||[];
     const drops=await recordPriceObservations(currentItems);
@@ -17,7 +20,7 @@ async function collectVisible(){
     $('status').textContent=currentItems.length?currentItems.length+' annonce(s) détectée(s).'+(drops.length?' Baisse(s) détectée(s) : '+drops.slice(0,3).join(', ')+'.':''):'Aucune annonce reconnue. Essaie une page de résultats et fais défiler la page.';
     if(drops.length)$('watchStatus').textContent='Baisse(s) observée(s) : '+drops.slice(0,4).join(' · ');
     renderWatchlist();
-  }catch(e){currentItems=[];renderCurrent();$('status').textContent='Ouvre une page Vinted, recharge-la puis relance l’analyse. La lecture dépend de la structure de la page.';}
+  }catch(e){currentItems=[];renderCurrent();$('status').textContent=e?.message==='not-vinted'?'Ouvre un domaine Vinted pris en charge pour analyser les annonces.':'Impossible de lire cette page. Recharge Vinted et relance l’analyse ; si le problème persiste, vérifie que l’extension est activée.';}
 }
 async function recordPriceObservations(items){
   const {watchlist=[]}=await chrome.storage.local.get('watchlist');
