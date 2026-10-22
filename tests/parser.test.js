@@ -25,5 +25,5 @@ test('extracts stable item identifiers from Vinted URLs', () => {
 });
 
 test('normalizes whitespace', () => {
-  assert.equal(clean('  Pull\\n  bleu   taille M '), 'Pull bleu taille M');
+  assert.equal(clean('  Pull\n  bleu   taille M '), 'Pull bleu taille M');
 });
