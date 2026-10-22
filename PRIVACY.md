@@ -6,7 +6,9 @@ Vinted Companion est une extension indépendante destinée à analyser localemen
 
 ## Données traitées
 - Texte de titre, prix, URL et URL de l'image des annonces visibles, uniquement lorsque l'utilisateur lance l'analyse.
-- Annonces que l'utilisateur ajoute à sa sélection et historique des prix observés.\n- Inventaire local : nom, marque, taille, état, statut, prix d'achat, prix cible, frais estimés, SKU et notes privées.\n- Titres et descriptions de brouillon générés localement à partir des informations saisies.
+- Annonces que l'utilisateur ajoute à sa sélection et historique des prix observés.
+- Inventaire local : nom, marque, taille, état, statut, prix d'achat, prix cible, frais estimés, SKU et notes privées.
+- Titres et descriptions de brouillon générés localement à partir des informations saisies.
 - Valeurs saisies dans le calculateur de marge, utilisées uniquement dans l'interface.
 
 ## Stockage et transmission
