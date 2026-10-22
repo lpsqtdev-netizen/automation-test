@@ -10,6 +10,13 @@ test('dashboard provides local inventory, statuses, profit and import/export',()
  assert.match(html,/id="potentialProfit"/);
  assert.match(html,/id="exportData"/);
  assert.match(html,/id="importData"/);
+ assert.match(html,/id="actualSale"/);
+ assert.match(html,/id="actualFees"/);
+ assert.match(html,/id="purchaseDate"/);
+ assert.match(html,/id="soldDate"/);
+ assert.match(html,/id="realizedProfit"/);
+ assert.match(html,/inventory-utils\.js/);
+ assert.match(dashboard,/apiInventory\.summarize\(items\)/);
  assert.match(dashboard,/storage\.local/);
  assert.match(dashboard,/function calcItem\(x\)/);
  assert.match(dashboard,/confirm\('Importer '/);
