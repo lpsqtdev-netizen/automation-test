@@ -15,7 +15,10 @@ Version 1.2.0 · Manifest V3 · Interface française · traitement local.
 - API de navigateur compatible avec `browser` (Firefox) et `chrome` (Chrome/Chromium).
 - Pas d'achat ou de message automatique, pas de serveur, pas de collecte périodique en arrière-plan.
 
-## Audit produit\nLe benchmark des outils concurrents, l'état initial et la feuille de route sont documentés dans [docs/COMPETITOR-AUDIT.md](docs/COMPETITOR-AUDIT.md).\n\n## Tableau de bord
+## Audit produit
+Le benchmark des outils concurrents, l'état initial et la feuille de route sont documentés dans [docs/COMPETITOR-AUDIT.md](docs/COMPETITOR-AUDIT.md).
+
+## Tableau de bord
 Depuis la popup, clique sur **Ouvrir le tableau de bord complet** pour gérer ton inventaire. Les articles sont conservés dans le stockage local du navigateur. L’import/export JSON sert à sauvegarder ou transférer tes données. Les brouillons de titres et descriptions sont des suggestions locales et ne sont jamais publiés automatiquement.
 
 ## Installation dans Chrome
