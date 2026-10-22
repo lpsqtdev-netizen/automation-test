@@ -1,6 +1,6 @@
 const test=require('node:test');
 const assert=require('node:assert/strict');
-const {estimatedProfit,realizedProfit,normalizeItem,summarize}=require('../inventory-utils.js');
+const {estimatedProfit,realizedProfit,normalizeItem,summarize,monthlyReport}=require('../inventory-utils.js');
 
 test('estimated profit subtracts acquisition cost and estimated fees',()=>{
  assert.equal(estimatedProfit({sale:42,buy:12,fees:3.5}),26.5);
@@ -27,4 +27,22 @@ test('summary separates current stock from realized sales',()=>{
   {status:'sold',buy:8,sale:25,fees:2,actualSale:22,actualFees:3}
  ]);
  assert.deepEqual(x,{stockCount:1,stockCost:10,potentialProfit:18,soldCount:1,realizedProfit:11,realizedRevenue:22});
+});
+test('monthly report groups sales by sale month and uses actual amounts when available',()=>{
+ const report=monthlyReport([
+  {status:'listed',soldDate:'2026-10-03',buy:5,sale:20,fees:1},
+  {status:'sold',soldDate:'2026-10-03',buy:10,sale:30,fees:2,actualSale:28,actualFees:3},
+  {status:'sold',soldDate:'2026-09-14',buy:4,sale:15,fees:1,actualSale:14,actualFees:2},
+  {status:'sold',buy:3,sale:12,fees:1}
+ ]);
+ assert.deepEqual(report,[
+  {month:'2026-10',soldCount:1,revenue:28,acquisitionCost:10,fees:3,netProfit:15,estimatedSalesCount:0},
+  {month:'2026-09',soldCount:1,revenue:14,acquisitionCost:4,fees:2,netProfit:8,estimatedSalesCount:0},
+  {month:'undated',soldCount:1,revenue:12,acquisitionCost:3,fees:1,netProfit:8,estimatedSalesCount:1}
+ ]);
+});
+test('monthly report labels a sale as estimated if either actual amount is missing',()=>{
+ const [row]=monthlyReport([{status:'sold',soldDate:'2026-10-20',buy:8,sale:20,fees:2,actualSale:19}]);
+ assert.equal(row.netProfit,9);
+ assert.equal(row.estimatedSalesCount,1);
 });
