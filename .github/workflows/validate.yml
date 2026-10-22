@@ -22,7 +22,8 @@ jobs:
         run: |
           node --check parser.js
           node --check content.js
-          node --check popup.js\n          node --check dashboard.js
+          node --check popup.js
+          node --check dashboard.js
       - name: Run parser and compatibility tests
         run: node --test tests/*.test.js
       - name: Package Chrome and Firefox builds
@@ -30,7 +31,8 @@ jobs:
           mkdir -p dist/chrome dist/firefox
           cp parser.js content.js popup.html popup.css popup.js dashboard.html dashboard.css dashboard.js README.md PRIVACY.md dist/chrome/
           cp parser.js content.js popup.html popup.css popup.js dashboard.html dashboard.css dashboard.js README.md PRIVACY.md dist/firefox/
-          node -e "const fs=require('fs'); const m=JSON.parse(fs.readFileSync('manifest.json','utf8')); delete m.browser_specific_settings; fs.writeFileSync('dist/chrome/manifest.json',JSON.stringify(m,null,2)+'\n')"
+          node -e "const fs=require('fs'); const m=JSON.parse(fs.readFileSync('manifest.json','utf8')); delete m.browser_specific_settings; fs.writeFileSync('dist/chrome/manifest.json',JSON.stringify(m,null,2)+'
+')"
           cp manifest.json dist/firefox/manifest.json
           (cd dist/chrome && zip -r ../vinted-companion-chrome.zip .)
           (cd dist/firefox && zip -r ../vinted-companion-firefox.zip .)
