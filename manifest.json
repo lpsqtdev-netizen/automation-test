@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Vinted Companion — Outils & Analyse",
-  "version": "1.3.0",
-  "description": "Analyse locale, inventaire, suivi des ventes et bénéfices. Compatible Chrome et Firefox.",
+  "version": "1.4.0",
+  "description": "Analyse locale, inventaire, suivi des ventes et reporting de rentabilité. Compatible Chrome et Firefox.",
   "permissions": [
     "storage",
     "activeTab"
