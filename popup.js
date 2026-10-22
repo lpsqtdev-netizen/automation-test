@@ -65,6 +65,7 @@ async function addToWatchlist(item){
   renderWatchlist();
 }
 $('refresh').addEventListener('click',collectVisible);
+$('openDashboard')?.addEventListener('click',()=>api.tabs.create({url:api.runtime.getURL('dashboard.html')}));
 $('filterInput').addEventListener('input',renderCurrent);
 $('saveVisible').addEventListener('click',async()=>{for(const item of visibleFiltered())await addToWatchlist(item);$('status').textContent=visibleFiltered().length+' annonce(s) ajoutée(s) ou actualisée(s) dans le suivi.';});
 function downloadCsv(filename,rows){

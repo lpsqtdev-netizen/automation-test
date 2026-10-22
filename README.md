@@ -1,6 +1,6 @@
 # Vinted Companion — Chrome et Firefox
 
-Version 1.1.0 · Manifest V3 · Interface française · traitement local.
+Version 1.2.0 · Manifest V3 · Interface française · traitement local.
 
 ## Fonctionnalités
 - Analyse manuelle des annonces visibles : nombre, prix moyen et minimum.
@@ -8,9 +8,18 @@ Version 1.1.0 · Manifest V3 · Interface française · traitement local.
 - Filtre local par titre, prix ou URL.
 - Suivi local, historique des prix observés et signalement d'une baisse entre deux analyses manuelles.
 - Export CSV et calculateur de marge.
+- Tableau de bord complet : inventaire local, statuts (à préparer/en ligne/vendu), prix d’achat, frais, prix cible, bénéfice estimé et recherche.
+- Préparation manuelle de brouillons de titre/description, avec validation avant publication.
+- Sauvegarde JSON de l’inventaire et import explicite avec confirmation.
 - Domaines Vinted FR, BE, DE, ES, IT, NL, PL et PT, avec ou sans `www`.
 - API de navigateur compatible avec `browser` (Firefox) et `chrome` (Chrome/Chromium).
 - Pas d'achat ou de message automatique, pas de serveur, pas de collecte périodique en arrière-plan.
+
+## Audit produit
+Le benchmark des outils concurrents, l'état initial et la feuille de route sont documentés dans [docs/COMPETITOR-AUDIT.md](docs/COMPETITOR-AUDIT.md).
+
+## Tableau de bord
+Depuis la popup, clique sur **Ouvrir le tableau de bord complet** pour gérer ton inventaire. Les articles sont conservés dans le stockage local du navigateur. L’import/export JSON sert à sauvegarder ou transférer tes données. Les brouillons de titres et descriptions sont des suggestions locales et ne sont jamais publiés automatiquement.
 
 ## Installation dans Chrome
 1. Télécharge l'artefact `vinted-companion-chrome.zip` depuis GitHub Actions et décompresse-le.
