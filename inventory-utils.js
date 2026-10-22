@@ -33,7 +33,31 @@
       realizedRevenue:sold.reduce((sum,item)=>sum+(item.actualSale==null?moneyNumber(item.sale):moneyNumber(item.actualSale)),0)
     };
   }
-  const api={estimatedProfit,realizedProfit,normalizeItem,summarize};
+  function monthlyReport(items){
+    const months=new Map();
+    for(const item of items){
+      if(item.status!=='sold')continue;
+      const key=/^\d{4}-\d{2}$/.test(String(item.soldDate||'').slice(0,7))?String(item.soldDate).slice(0,7):'undated';
+      if(!months.has(key))months.set(key,{month:key,soldCount:0,revenue:0,acquisitionCost:0,fees:0,netProfit:0,estimatedSalesCount:0});
+      const row=months.get(key);
+      const hasActualSale=item.actualSale!==undefined&&item.actualSale!==null&&item.actualSale!=='';
+      const hasActualFees=item.actualFees!==undefined&&item.actualFees!==null&&item.actualFees!=='';
+      const revenue=moneyNumber(hasActualSale?item.actualSale:item.sale);
+      const fees=moneyNumber(hasActualFees?item.actualFees:item.fees);
+      row.soldCount++;
+      row.revenue+=revenue;
+      row.acquisitionCost+=moneyNumber(item.buy);
+      row.fees+=fees;
+      row.netProfit+=revenue-moneyNumber(item.buy)-fees;
+      if(!hasActualSale||!hasActualFees)row.estimatedSalesCount++;
+    }
+    return [...months.values()].sort((a,b)=>{
+      if(a.month==='undated')return 1;
+      if(b.month==='undated')return -1;
+      return b.month.localeCompare(a.month);
+    });
+  }
+  const api={estimatedProfit,realizedProfit,normalizeItem,summarize,monthlyReport};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   root.VintedInventory=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
