@@ -1,6 +1,6 @@
 # Vinted Companion — Chrome et Firefox
 
-Version 1.3.0 · Manifest V3 · Interface française · traitement local.
+Version 1.4.0 · Manifest V3 · Interface française · traitement local.
 
 ## Fonctionnalités
 - Analyse manuelle des annonces visibles : nombre, prix moyen et minimum.
@@ -12,6 +12,8 @@ Version 1.3.0 · Manifest V3 · Interface française · traitement local.
 - Préparation manuelle de brouillons de titre/description, avec validation avant publication.
 - Sauvegarde JSON de l’inventaire et import explicite avec confirmation.
 - Dates d’achat/vente, prix et frais réels saisis manuellement, bénéfice réalisé séparé du bénéfice potentiel.
+- Rapport mensuel : chiffre d’affaires, coût d’achat des articles vendus, frais, bénéfice net, nombre de ventes et indicateur des montants à confirmer.
+- Export CSV du rapport mensuel, compatible avec les tableurs courants.
 - Les articles historiques restent compatibles : les ventes sans prix/frais réels utilisent le prix cible et les frais estimés.
 - Domaines Vinted FR, BE, DE, ES, IT, NL, PL et PT, avec ou sans `www`.
 - API de navigateur compatible avec `browser` (Firefox) et `chrome` (Chrome/Chromium).
@@ -22,6 +24,8 @@ Le benchmark des outils concurrents, l'état initial et la feuille de route sont
 
 ## Tableau de bord
 Depuis la popup, clique sur **Ouvrir le tableau de bord complet** pour gérer ton inventaire. Les articles sont conservés dans le stockage local du navigateur. L’import/export JSON sert à sauvegarder ou transférer tes données. Les brouillons de titres et descriptions sont des suggestions locales et ne sont jamais publiés automatiquement.
+
+Le rapport mensuel regroupe les ventes selon leur date de vente. Le coût d’achat de chaque article est imputé au mois où il a été vendu, et non au mois d’achat, afin de calculer une marge par vente. Les ventes sans date sont regroupées séparément. Si le prix de vente réel ou les frais réels manquent, la ligne est marquée comme estimation à confirmer.
 
 ## Installation dans Chrome
 1. Télécharge l'artefact `vinted-companion-chrome.zip` depuis GitHub Actions et décompresse-le.
