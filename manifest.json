@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Vinted Companion — Outils & Analyse",
-  "version": "0.1.0",
-  "description": "Outils locaux pour analyser les annonces visibles, suivre des articles et calculer la marge sur Vinted.",
+  "version": "0.2.0",
+  "description": "Analyse locale, filtres, historique de prix observés, suivi et calcul de marge pour Vinted.",
   "permissions": [
     "storage",
     "activeTab"
