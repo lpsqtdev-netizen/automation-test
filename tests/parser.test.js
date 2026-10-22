@@ -36,3 +36,23 @@ test('accepts only HTTPS item URLs on supported Vinted domains', () => {
 test('normalizes whitespace', () => {
   assert.equal(clean('  Pull\n  bleu   taille M '), 'Pull bleu taille M');
 });
+
+
+test('declares Firefox WebExtension metadata and Manifest V3', () => {
+  const fs = require('node:fs');
+  const manifest = JSON.parse(fs.readFileSync(require('node:path').join(__dirname, '..', 'manifest.json'), 'utf8'));
+  assert.equal(manifest.manifest_version, 3);
+  assert.equal(typeof manifest.browser_specific_settings.gecko.id, 'string');
+  assert.ok(manifest.browser_specific_settings.gecko.id.length > 0);
+});
+
+test('uses browser API with Chrome fallback in extension scripts', () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const popup = fs.readFileSync(path.join(__dirname, '..', 'popup.js'), 'utf8');
+  const content = fs.readFileSync(path.join(__dirname, '..', 'content.js'), 'utf8');
+  assert.match(popup, /globalThis\.browser\s*\?\?\s*globalThis\.chrome/);
+  assert.match(content, /globalThis\.browser\s*\?\?\s*globalThis\.chrome/);
+  assert.doesNotMatch(popup, /\bchrome\.(tabs|storage)\b/);
+  assert.doesNotMatch(content, /\bchrome\.runtime\b/);
+});

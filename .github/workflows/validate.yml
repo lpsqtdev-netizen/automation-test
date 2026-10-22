@@ -1,4 +1,4 @@
-name: Validate extension
+name: Validate and package extension
 on:
   push:
     branches: [main, feat/vinted-companion-extension]
@@ -15,21 +15,29 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Validate manifest JSON
-        run: node -e "JSON.parse(require('fs').readFileSync('manifest.json', 'utf8'))"
+      - name: Validate manifest JSON and Firefox metadata
+        run: |
+          node -e "const m=JSON.parse(require('fs').readFileSync('manifest.json','utf8')); if(m.manifest_version!==3) throw Error('Manifest V3 required'); if(!m.browser_specific_settings?.gecko?.id) throw Error('Firefox Gecko ID missing');"
       - name: Check JavaScript syntax
         run: |
           node --check parser.js
           node --check content.js
           node --check popup.js
-      - name: Run parser tests
+      - name: Run parser and compatibility tests
         run: node --test tests/parser.test.js
-      - name: Package extension
+      - name: Package Chrome and Firefox builds
         run: |
-          mkdir -p dist
-          zip -r dist/vinted-companion-chrome.zip manifest.json parser.js content.js popup.html popup.css popup.js README.md PRIVACY.md
+          mkdir -p dist/chrome dist/firefox
+          cp parser.js content.js popup.html popup.css popup.js README.md PRIVACY.md dist/chrome/
+          cp parser.js content.js popup.html popup.css popup.js README.md PRIVACY.md dist/firefox/
+          node -e "const fs=require('fs'); const m=JSON.parse(fs.readFileSync('manifest.json','utf8')); delete m.browser_specific_settings; fs.writeFileSync('dist/chrome/manifest.json',JSON.stringify(m,null,2)+'\n')"
+          cp manifest.json dist/firefox/manifest.json
+          (cd dist/chrome && zip -r ../vinted-companion-chrome.zip .)
+          (cd dist/firefox && zip -r ../vinted-companion-firefox.zip .)
       - uses: actions/upload-artifact@v4
         with:
-          name: vinted-companion-chrome
-          path: dist/vinted-companion-chrome.zip
+          name: vinted-companion-cross-browser
+          path: |
+            dist/vinted-companion-chrome.zip
+            dist/vinted-companion-firefox.zip
           if-no-files-found: error

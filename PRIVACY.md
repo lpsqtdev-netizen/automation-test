@@ -10,7 +10,7 @@ Vinted Companion est une extension indépendante destinée à analyser localemen
 - Valeurs saisies dans le calculateur de marge, utilisées uniquement dans l'interface.
 
 ## Stockage et transmission
-Les annonces suivies et leur historique sont enregistrés dans le stockage local de Chrome sur l'appareil. L'extension ne transmet pas ces données à un serveur, ne collecte pas d'identifiants de connexion, ne demande pas de mot de passe et n'intègre aucun outil analytique ou publicitaire. L'export CSV n'est déclenché que par l'utilisateur.
+Les annonces suivies et leur historique sont enregistrés dans le stockage local du navigateur sur l'appareil. L'extension ne transmet pas ces données à un serveur, ne collecte pas d'identifiants de connexion, ne demande pas de mot de passe et n'intègre aucun outil analytique ou publicitaire. L'export CSV n'est déclenché que par l'utilisateur.
 
 ## Permissions
 - `storage` : conserver la sélection et l'historique localement.
@@ -18,7 +18,7 @@ Les annonces suivies et leur historique sont enregistrés dans le stockage local
 - Accès aux domaines Vinted listés dans le manifeste : lire le contenu de la page pour extraire les annonces visibles.
 
 ## Contrôle et suppression
-L'utilisateur peut retirer une annonce, effacer toute sa sélection depuis l'extension ou supprimer les données de l'extension dans les paramètres de Chrome.
+L'utilisateur peut retirer une annonce, effacer toute sa sélection depuis l'extension ou supprimer les données de l'extension dans les paramètres du navigateur.
 
 ## Contact et statut
 Extension indépendante, non affiliée à Vinted. Cette version est distribuée comme outil local et n'offre aucun service de compte. Pour signaler un problème, ouvrir une issue dans le dépôt GitHub du projet.

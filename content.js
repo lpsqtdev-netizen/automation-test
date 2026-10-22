@@ -1,6 +1,7 @@
 (() => {
+  const api = globalThis.browser ?? globalThis.chrome;
   const parser = globalThis.VintedCompanionParser;
-  chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  api.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if (msg?.type !== 'VINTED_COMPANION_COLLECT') return false;
     try {
       sendResponse({

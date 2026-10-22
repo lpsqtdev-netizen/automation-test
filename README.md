@@ -1,45 +1,50 @@
-# Vinted Companion — extension Chrome
+# Vinted Companion — Chrome et Firefox
 
-Version 1.0.0 · Manifest V3 · Interface française · traitement local.
+Version 1.1.0 · Manifest V3 · Interface française · traitement local.
 
 ## Fonctionnalités
-- Analyse manuelle des annonces détectées dans la page Vinted ouverte : nombre, prix moyen et minimum.
-- Détection fondée sur plusieurs sélecteurs de cartes, avec un mécanisme de repli sur les liens d'annonces.
+- Analyse manuelle des annonces visibles : nombre, prix moyen et minimum.
+- Détection par plusieurs sélecteurs et solution de repli.
 - Filtre local par titre, prix ou URL.
-- Sélection locale, historique de prix observés et signalement d'une baisse entre deux analyses manuelles.
-- Export CSV des résultats et du suivi.
-- Calculateur de marge de revente.
-- Prise en charge des domaines Vinted France, Belgique, Allemagne, Espagne, Italie, Pays-Bas, Pologne et Portugal, avec ou sans préfixe `www`.
-- Aucune connexion externe, aucun achat ou message automatique, aucune collecte périodique en arrière-plan.
+- Suivi local, historique des prix observés et signalement d'une baisse entre deux analyses manuelles.
+- Export CSV et calculateur de marge.
+- Domaines Vinted FR, BE, DE, ES, IT, NL, PL et PT, avec ou sans `www`.
+- API de navigateur compatible avec `browser` (Firefox) et `chrome` (Chrome/Chromium).
+- Pas d'achat ou de message automatique, pas de serveur, pas de collecte périodique en arrière-plan.
 
-## Installation pour test
-1. Télécharge le ZIP de la branche ou le paquet `vinted-companion-chrome.zip` depuis les artefacts de validation GitHub Actions.
-2. Décompresse le ZIP dans un dossier permanent.
-3. Ouvre `chrome://extensions` dans Chrome ou un navigateur Chromium compatible.
-4. Active le **mode développeur**, puis sélectionne **Charger l'extension non empaquetée**.
-5. Sélectionne le dossier décompressé contenant `manifest.json`.
-6. Ouvre une page de résultats Vinted, recharge-la, puis clique sur l'extension et lance l'analyse.
+## Installation dans Chrome
+1. Télécharge l'artefact `vinted-companion-chrome.zip` depuis GitHub Actions et décompresse-le.
+2. Ouvre `chrome://extensions`.
+3. Active le mode développeur, puis clique sur **Charger l'extension non empaquetée**.
+4. Sélectionne le dossier décompressé contenant `manifest.json`.
+5. Ouvre une page de résultats Vinted, recharge-la puis lance l'analyse.
 
-## Développement et tests
+## Installation dans Firefox
+1. Télécharge l'artefact `vinted-companion-firefox.zip` depuis GitHub Actions et décompresse-le.
+2. Ouvre `about:debugging#/runtime/this-firefox`.
+3. Clique sur **Charger un module complémentaire temporaire…**.
+4. Sélectionne le fichier `manifest.json` dans le dossier décompressé.
+5. Ouvre une page Vinted prise en charge, recharge-la et lance l'analyse.
+
+**Note Firefox :** le chargement via `about:debugging` est temporaire et peut disparaître au redémarrage. Pour une installation permanente, il faut soumettre le module à Mozilla Add-ons (AMO) pour signature et distribution, puis tester le paquet signé.
+
+## Tests locaux
 Nécessite Node.js 20+ :
-
 ```sh
 node --check parser.js
 node --check content.js
 node --check popup.js
 node --test tests/parser.test.js
 ```
+GitHub Actions exécute les tests et construit les paquets distincts Chrome et Firefox à chaque push sur `main) ou la branche de développement, ainsi qu'à chaque pull request vers `main`.
 
-GitHub Actions exécute ces vérifications et prépare un ZIP d'installation à chaque push sur la branche de développement ou sur `main`, ainsi qu'à chaque pull request vers `main`.
-
-## Limites connues
-- La détection dépend du HTML que Vinted sert à votre compte et peut nécessiter une mise à jour.
-- L'extension lit les annonces rendues dans la page ; faire défiler la page peut être nécessaire pour charger plus de résultats.
-- L'historique n'est actualisé que lors d'analyses manuelles, et seulement si l'annonce suivie apparaît dans les résultats analysés.
-- Le prix moyen porte sur les annonces détectées, pas sur tout le catalogue Vinted.
-- Les conditions d'utilisation de Vinted peuvent limiter les outils externes : vérifiez qu'un usage donné est autorisé.
+## Limites
+- La détection dépend du HTML servi par Vinted et doit être vérifiée sur de vraies pages.
+- Seules les annonces rendues dans la page sont analysées ; faire défiler peut charger plus de résultats.
+- L'historique n'est actualisé qu'au lancement manuel d'une analyse.
+- Les conditions d'utilisation de Vinted peuvent limiter certains usages : vérifiez-les avant usage.
 
 ## Confidentialité
-Voir [PRIVACY.md](PRIVACY.md). Les données suivies restent dans le stockage local de Chrome et ne sont pas envoyées à un serveur par l'extension.
+Voir [PRIVACY.md](PRIVACY.md). Les annonces suivies et l'historique restent dans le stockage local du navigateur et ne sont pas envoyés à un serveur par l'extension.
 
-Extension indépendante, non affiliée à Vinted. Pas encore publiée sur le Chrome Web Store : le chargement non empaqueté est destiné aux tests et à une distribution directe contrôlée.
+Extension indépendante, non affiliée à Vinted.
