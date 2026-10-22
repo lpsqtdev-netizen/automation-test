@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Vinted Companion — Outils & Analyse",
+  "version": "0.1.0",
+  "description": "Outils locaux pour analyser les annonces visibles, suivre des articles et calculer la marge sur Vinted.",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://www.vinted.fr/*",
+    "https://www.vinted.be/*",
+    "https://www.vinted.de/*",
+    "https://www.vinted.es/*",
+    "https://www.vinted.it/*",
+    "https://www.vinted.nl/*",
+    "https://www.vinted.pl/*",
+    "https://www.vinted.pt/*"
+  ],
+  "action": {
+    "default_title": "Vinted Companion",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.vinted.fr/*",
+        "https://www.vinted.be/*",
+        "https://www.vinted.de/*",
+        "https://www.vinted.es/*",
+        "https://www.vinted.it/*",
+        "https://www.vinted.nl/*",
+        "https://www.vinted.pl/*",
+        "https://www.vinted.pt/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {}
+}
