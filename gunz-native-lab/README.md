@@ -35,3 +35,7 @@ WASD move · Space jump · Left Shift dash · Right mouse camera · Left mouse f
 See `RESEARCH_NOTES.md` for source comparison and roadmap. Reference paths consulted include `Gunz/ZCharacter.*`, `Gunz/ZCamera.cpp`, `Gunz/ZCombatInterface.cpp`, `Gunz/ZApplication.cpp` and `CSCommon/Source/MMatchRuleDeathMatch.cpp` in `open-gunz/ref-gunz1.5`. The `LostMyCode/three-gunz` project is a separate Three.js/WebAssembly-oriented experiment, not the native C++ reference.
 
 Ghidra/REA and original executable analysis have **not** been run. The prototype remains a simplified independent implementation.
+
+
+## GitHub branch snapshot
+The branch `feat/gunz-native-lab` contains a scoped native C++ snapshot under `gunz-native-lab/`. The full standalone raylib prototype archive is available in the originating ChatGPT conversation. This branch was created because the authenticated account did not expose a pre-existing GunZ repository; the Vinted Companion root files were left intact.
