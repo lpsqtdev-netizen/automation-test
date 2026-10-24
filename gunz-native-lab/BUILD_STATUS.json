@@ -1,22 +1,23 @@
 {
   "language": "C++20",
   "renderer": "raylib 5.5 via CMake FetchContent",
-  "source_comparison": "Selected source references: ZCharacter.h, ZCharacter.cpp, ZCamera.cpp, ZCombatInterface.cpp, MMatchRuleDeathMatch.cpp, ZApplication.cpp",
+  "source_comparison": "Selected source references reviewed: ZCharacter.h, ZCharacter.cpp, ZCamera.cpp, ZCombatInterface.cpp, MMatchRuleDeathMatch.cpp, ZApplication.cpp",
   "changes_this_pass": [
-    "pure C++ movement/dash/collision core in src/simulation.hpp",
-    "native assertion tests in src/simulation_tests.cpp",
-    "raylib arena prototype in src/main.cpp",
-    "camera tracking interpolation",
-    "basic bots, weapon fire, melee, HP/AP, developer HUD"
+    "pure movement/dash/collision component in src/simulation.hpp",
+    "shared HP/AP damage rules in src/combat.hpp",
+    "raylib third-person arena prototype in src/main.cpp",
+    "deterministic tests for movement, dash, collision and HP/AP",
+    "camera smoothing, bots, basic gun/sword combat, debug HUD"
   ],
   "unit_tests": {
     "command": "g++ -std=c++20 -Wall -Wextra -Wpedantic -Isrc src/simulation_tests.cpp -o simulation_tests && ./simulation_tests",
-    "result": "passed locally: simulation tests passed"
+    "result": "passed locally: simulation/combat tests passed"
   },
+  "syntax_check": "passed with temporary declaration-only raylib headers; not a real raylib link",
   "cmake_configure": "failed in this environment: could not resolve github.com while downloading raylib 5.5",
-  "raylib_application_runtime": "not built or launched in this environment",
+  "runtime_gameplay_test": "not performed",
   "ghidra_or_rea_run": false,
-  "github_status": "Draft PR #5 in lpsqtdev-netizen/automation-test, branch feat/gunz-native-lab, path gunz-native-lab/. Existing Vinted Companion project root left unchanged.",
+  "github_status": "Draft PR #5: https://github.com/lpsqtdev-netizen/automation-test/pull/5 ; branch feat/gunz-native-lab ; all GunZ snapshot files confined to gunz-native-lab/ subdirectory; existing Vinted Companion root files unchanged.",
   "limitations": [
     "Not an exact GunZ replica",
     "No original executable analyzed",
