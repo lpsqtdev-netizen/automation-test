@@ -14,7 +14,7 @@ inline float TowardZero(float value,float delta){return std::abs(value)<=delta?0
 inline bool IntersectsCircleAabb(Vec2 p,float radius,const Aabb2& b){const float nx=std::clamp(p.x,b.minX,b.maxX),nz=std::clamp(p.z,b.minZ,b.maxZ);const float dx=p.x-nx,dz=p.z-nz;return dx*dx+dz*dz<radius*radius;}
 inline bool IsBlocked(Vec2 p,float radius,const Aabb2* obstacles,std::size_t count,float arenaMin=-22.0f,float arenaMax=22.0f){
  if(p.x<arenaMin+radius||p.x>arenaMax-radius||p.z<arenaMin+radius||p.z>arenaMax-radius)return true;
- for(std::size_t i=0;i<count;++i)if(IntersectsCircleAabb(p,radius,obstacles[i]))return true;return false;
+ for(std::size_t i=0;i<count;++i){if(IntersectsCircleAabb(p,radius,obstacles[i]))return true;} return false;
 }
 inline void MoveAndCollide(PlayerMotion& p,Vec2 input,float dt,const MotionTuning& t,const Aabb2* obstacles,std::size_t count,float radius=.36f){
  input=Normalize(input); p.dashCooldown=std::max(0.0f,p.dashCooldown-dt); p.dashTime=std::max(0.0f,p.dashTime-dt); p.dashing=p.dashTime>0;
