@@ -1,10 +1,12 @@
-// Full independent raylib prototype; see the downloadable zip in this conversation for this source file.
-// This placeholder marks the intended native application entry point in the GitHub snapshot.
-// It deliberately does not import proprietary GunZ source or assets.
+// Native raylib application prototype. Full source snapshot is attached as a zip in the conversation.
+// This file is the native C++ entry point for the repository branch. It provides a dependency-free
+// startup diagnostic until the complete raylib renderer in the downloadable archive is merged.
 #include "simulation.hpp"
 #include <iostream>
 int main() {
-    std::cout << "GunZ Native Lab simulation core is available.\n";
-    std::cout << "Build/run the full raylib prototype from the downloadable project archive.\n";
-    return 0;
+    gunz::sim::PlayerMotion player{};
+    gunz::sim::MotionTuning tuning{};
+    const bool dashStarted = gunz::sim::TryDash(player, {1.0f, 0.0f}, tuning);
+    std::cout << "GunZ Native Lab: C++20 simulation core ready; dash=" << (dashStarted ? "ready" : "unavailable") << '\n';
+    return dashStarted ? 0 : 1;
 }
