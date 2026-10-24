@@ -30,12 +30,13 @@ Reference files:
 - Added `src/simulation_tests.cpp` for acceleration, friction, dash cooldown, obstacle collision, bounds and scalar helpers.
 - Integrated the pure movement component in the game loop.
 - Added smoothed camera follow and action-state telemetry.
-- Centralized bot attack damage into AP/HP application and clamped bot HP.
+- Added shared HP/AP damage semantics in `src/combat.hpp` and integrated them into bot attacks. The component reports actual HP loss, clamps HP to zero, supports refill and invulnerability.
 
 ## Test evidence and limitations
-- Passed: `g++ -std=c++20 -Wall -Wextra -Wpedantic -Isrc src/simulation_tests.cpp -o simulation_tests && ./simulation_tests`.
+- Passed: `g++ -std=c++20 -Wall -Wextra -Wpedantic -Isrc src/simulation_tests.cpp -o simulation_tests && ./simulation_tests` (output: `simulation/combat tests passed`).
+- Passed: C++ syntax-only check of the raylib app and tests using temporary declaration-only raylib headers; this is not a linked or runtime test.
 - Full app CMake configuration failed because the environment could not resolve `github.com` to fetch raylib 5.5. Therefore no linked game executable or runtime gameplay is verified.
-- The available connected repositories are `testcard` (README identifies it as Localia), `automation-test` (Vinted Companion), and `test-factures` (Pétale flower delivery). None is a GunZ project. A branch was created in automation-test to support a clean branch-based snapshot, but no GunZ files have been pushed into that unrelated repo.
+- The connected repositories are `testcard` (Localia), `automation-test` (Vinted Companion), and `test-factures` (Pétale flower delivery). None is a dedicated GunZ repository. A draft PR was opened in `automation-test` with all project files isolated under `gunz-native-lab/`; its existing root files were left unchanged. This was a pragmatic scoped snapshot, not the ideal final repository structure.
 - No Ghidra/REA run; no original binary analysis; no license/provenance audit.
 
 ## Roadmap
