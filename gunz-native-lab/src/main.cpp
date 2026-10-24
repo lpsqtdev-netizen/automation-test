@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "simulation.hpp"
+#include "combat.hpp"
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -62,10 +63,9 @@ void ResetBots() {
     Log("Bots respawned");
 }
 void DamagePlayer(float amount) {
-    if(cfg.godMode || amount<=0.0f) return;
-    const float absorbed=std::min(player.ap,amount);
-    player.ap-=absorbed;
-    player.hp=std::max(0.0f,player.hp-(amount-absorbed));
+    gunz::combat::HealthArmor pool{player.hp,player.ap};
+    pool.ApplyDamage(amount,cfg.godMode);
+    player.hp=pool.hp; player.ap=pool.ap;
 }
 void DamageBot(Bot& bot,float amount) {
     if(!bot.alive || amount<=0.0f) return;
