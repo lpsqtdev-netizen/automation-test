@@ -1,0 +1,20 @@
+{
+  "language": "C++20",
+  "renderer": "raylib 5.5 via CMake FetchContent",
+  "source_comparison": "Selected reference files reviewed: ZCharacter.h, ZCharacter.cpp, ZCamera.cpp, ZCombatInterface.cpp, MMatchRuleDeathMatch.cpp, ZApplication.cpp",
+  "changes_this_pass": [
+    "extracted pure movement/dash/collision logic into src/simulation.hpp",
+    "added deterministic unit tests in src/simulation_tests.cpp",
+    "added axis-separated collision against six greybox obstacles",
+    "added interpolated camera follow and action-state telemetry",
+    "centralized AP/HP damage application and clamped bot health"
+  ],
+  "unit_tests": {
+    "command": "g++ -std=c++20 -Wall -Wextra -Wpedantic -Isrc src/simulation_tests.cpp -o simulation_tests && ./simulation_tests",
+    "result": "passed: simulation tests passed"
+  },
+  "cmake_configure": "failed: could not resolve github.com while fetching raylib 5.5",
+  "ghidra_or_rea_run": false,
+  "runtime_gameplay_test": "not performed",
+  "github_push": "not merged to main. A branch feat/gunz-native-lab was created in lpsqtdev-netizen/automation-test after verifying that repo is Vinted Companion; unrelated repo contents were not altered. Prototype snapshot is provided as downloadable archive."
+}
